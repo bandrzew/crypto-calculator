@@ -2,13 +2,19 @@ package com.crypto.calculator;
 
 import com.crypto.calculator.coin.api.service.CoinApiService;
 import com.crypto.calculator.currency.controller.CurrencyController;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
 @SpringBootTest
 class CryptoCalculatorApplicationTests {
+
+	private static final String MESSAGE = "Context failed to load";
+
+	static {
+		System.setProperty("COIN_API_KEY", "THIS-IS-SAMPLE-KEY");
+	}
 
 	@Autowired
 	private CoinApiService coinApiService;
@@ -18,8 +24,8 @@ class CryptoCalculatorApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Assertions.assertThat(coinApiService).isNotNull();
-		Assertions.assertThat(currencyController).isNotNull();
+		Assert.notNull(coinApiService, MESSAGE);
+		Assert.notNull(currencyController, MESSAGE);
 	}
 
 }
